@@ -15,8 +15,11 @@ Migrate all posts from Wordpress xml to Jekyll markdown format.
   Content here 
   
 ## Installation
+Requires [html2text](https://github.com/Alir3z4/html2text)
+
 No installation is required. Just export your wordpress site to an xml using the Wordpress Dashboard->Export
 
+### Usage
 From console run 
 
     python ciao-jekyll.py -i wordpress_export.xml -o _posts -n 42
