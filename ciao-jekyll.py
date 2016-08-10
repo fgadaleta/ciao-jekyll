@@ -5,6 +5,7 @@ import re
 import xmltodict
 from datetime import datetime
 import html2text
+import shutil
 
 def printStuff(msg, arg):
     sys.stdout.write('\r')
@@ -28,7 +29,11 @@ def openXml(fname, verbose=False):
 def process(posts, odir, limit=10, verbose=False):
     if not odir:
         odir = '_posts'
-    
+   
+    if os.path.exists(odir):
+	print('Found old posts. Deleting...')
+    	shutil.rmtree(odir)
+ 
     if not os.path.exists(odir):
         os.makedirs(odir)
         
@@ -98,12 +103,11 @@ def process(posts, odir, limit=10, verbose=False):
         fh.close
         printStuff('Processed %d posts', i)
     
-    print('\nBye!\n')
 
 def main(argv):
     inputfile = ''
-    outputdir = ''
-    limit = 0
+    outputdir = '_posts'
+    limit = 42
     verbose = False
 
     try:
@@ -129,12 +133,19 @@ def main(argv):
         elif opt in ("-v", "--verbose"):
             verbose = False if arg==0 else True
 
-    print 'Input file is ', inputfile
-    print 'Processed files saved to ', outputdir
+    if not inputfile:
+    	print('No input file provided')
+	return
     
+    print('Input file is [%s]'%inputfile)
+    print('\nProcessed files saved to [%s/]'%outputdir)
+     
     data = openXml(inputfile, verbose)
     process(data, outputdir, limit, verbose)
-    
+    print('\n')
+    print('-'*50)
+    print('\nCheck out [%s/] and publish your posts in Markdown format\n'%outputdir) 
+    print('Bye!\n')
     
 if __name__ == "__main__":
     main(sys.argv[1:])
