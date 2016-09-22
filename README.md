@@ -25,4 +25,9 @@ From console run
     python ciao-jekyll.py -i wordpress_export.xml -o _posts -n 42
   This will process the first 42 posts from xml (in reverse chronological order) and create one markdown file per post in the _post directory. These files should be ready to be published to your jekyll site.
   
-  
+
+## License
+
+[The MIT License (MIT)](LICENSE.md)
+
+Copyright © 2014-2016 Francesco Gadaleta
